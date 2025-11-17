@@ -2,15 +2,16 @@
 import { Server } from "socket.io";
 import http from "http";
 
-// used to store online users
-const userSocketMap = {}; // { userId: socketId }
+const userSocketMap = {};
+let ioInstance = null;
 
 export const getReceiverSocketId = (userId) => {
   return userSocketMap[userId];
 };
 
+export const getIO = () => ioInstance;
+
 export const initSocket = (app) => {
-  // create HTTP server using the express app
   const server = http.createServer(app);
 
   const io = new Server(server, {
@@ -20,11 +21,12 @@ export const initSocket = (app) => {
     },
   });
 
+  ioInstance = io; // store globally so controllers can access it
+
   io.on("connection", (socket) => {
     console.log("A user connected", socket.id);
 
     const userId = socket.handshake.query.userId;
-
     if (userId) userSocketMap[userId] = socket.id;
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
