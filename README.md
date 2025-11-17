@@ -1,4 +1,4 @@
-# Chatty – Real-Time MERN Chat Application
+# Chatty – Real-Time Full Stack Application
 
 Chatty is a modern real-time chat platform built using the MERN stack. It provides a clean and responsive interface for seamless communication, complete with user authentication, profile management, and customizable themes. The app is deployed on Render and supports real-time messaging powered by Socket.IO.
 
